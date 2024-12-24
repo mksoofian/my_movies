@@ -1,4 +1,4 @@
-import { CircleUserRound, Clapperboard, Heart, List } from "lucide-react";
+import { CircleUserRound, Clapperboard, Heart } from "lucide-react";
 import Link from "next/link";
 
 function Header() {
