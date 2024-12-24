@@ -1,25 +1,30 @@
-import { CircleUserRound } from "lucide-react";
+import { CircleUserRound, Clapperboard, Heart, List } from "lucide-react";
 import Link from "next/link";
 
 function Header() {
   return (
-    <div className="flex justify-between w-full lg:max-w-5xl p-4 mx-auto bg-gray-100 mt-2 rounded-xl shadow-md">
-      <p>My Movies</p>
+    <div className="flex justify-center w-48 p-4 mx-auto bg-gray-100 mt-2 rounded-xl shadow-md">
       <nav>
-        <ul className="flex gap-4">
+        <ul className="flex gap-8">
           <li>
-            <Link href={`/`}>Home</Link>
+            <Link href={`/`}>
+              <Clapperboard />
+            </Link>
           </li>
           <li>
-            <Link href={`/watchlist`}>Watchlist</Link>
+            <Link href={`/watchlist`}>
+              <Heart />
+            </Link>
+          </li>
+          <li>
+            <button>
+              {/* if loggedin, display user icon, else display login icon */}
+              <CircleUserRound />
+            </button>
           </li>
         </ul>
       </nav>
       {/* <div>Put a search bar here?</div> */}
-      <button>
-        {/* if loggedin, display user icon, else display login icon */}
-        <CircleUserRound />
-      </button>
     </div>
   );
 }
