@@ -1,19 +1,20 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 function LoginForm() {
   const [pin, setPin] = useState("");
+  const dbPin = process.env.NEXT_PUBLIC_TEST_PIN;
+  const router = useRouter();
 
   function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
-    if (pin == process.env.TEST_PIN) {
-      console.log(
-        `PIN match! pin ${pin} vs ${process.env.NEXT_PUBLIC_TEST_PIN}`
-      );
-    } else
-      console.log(
-        `Incorrect submission: pin "${pin}" vs "${process.env.NEXT_PUBLIC_TEST_PIN}"`
-      );
+    if (pin == dbPin) {
+      ///// logic for successful attempt
+      // login success animation
+      // redirect to home
+      router.push("/");
+    } else console.log(`Incorrect PIN: "${pin}"`);
   }
 
   return (

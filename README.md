@@ -41,7 +41,8 @@ The OMDb API provides movie information and is simple to integrate. It offers a 
 
 4. State Management:
 
-   1. Use React Context for global state (watchlist, theme)
+   <!-- 1. Use React Context for global state (watchlist, theme) -->
+
    2. Local state for component-specific data
 
 5. Styling:
