@@ -1,4 +1,4 @@
-import { CircleUserRound, Clapperboard, Heart } from "lucide-react";
+import { LogIn, Clapperboard, Heart } from "lucide-react";
 import Link from "next/link";
 
 function Header() {
@@ -18,13 +18,13 @@ function Header() {
           </li>
           <li>
             <button>
-              {/* if loggedin, display user icon, else display login icon */}
-              <CircleUserRound />
+              {/* if loggedin, display logout icon, else display login icon */}
+              <LogIn />
+              {/* LogOut */}
             </button>
           </li>
         </ul>
       </nav>
-      {/* <div>Put a search bar here?</div> */}
     </div>
   );
 }
