@@ -1,5 +1,7 @@
 "use client";
+import { CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 
@@ -8,6 +10,7 @@ type FormValues = {
 };
 
 function LoginForm() {
+  const [isLoading, setIsLoading] = useState(false);
   const dbPin = process.env.NEXT_PUBLIC_TEST_PIN;
   const router = useRouter();
   const {
@@ -16,14 +19,17 @@ function LoginForm() {
     watch,
     formState: { errors },
   } = useForm<FormValues>();
+
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    if (data.pin == dbPin) {
-      ///// logic for successful attempt
-      // login success animation
-      // redirect to home
-      toast.success(`Welcome Mike`); // Make user dynamic
-      router.push("/");
-    } else toast.error(`Incorrect PIN attempt`);
+    // Timer delay for submission loading spinner animation
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      if (data.pin == dbPin) {
+        toast.success(`Welcome Mike`); // Make user dynamic
+        router.push("/");
+      } else toast.error(`Incorrect PIN attempt`);
+    }, 2000);
   };
 
   return (
@@ -58,14 +64,20 @@ function LoginForm() {
           </div>
           <button
             type="submit"
-            disabled={watch("pin") === "" || watch("pin") === undefined}
+            disabled={
+              watch("pin") === "" || watch("pin") === undefined || isLoading
+            }
             className={` text-white rounded-md mt-4 w-20 py-1 px-2 ${
               watch("pin") === "" || watch("pin") === undefined
                 ? "bg-gray-400"
                 : "bg-black  hover:bg-gray-700"
             }`}
           >
-            submit
+            {isLoading ? (
+              <CircularProgress size="15px" color="info" />
+            ) : (
+              "submit"
+            )}
           </button>
         </div>
       </div>
