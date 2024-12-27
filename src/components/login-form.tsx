@@ -1,11 +1,10 @@
 "use client";
 import { useRouter } from "next/navigation";
-// import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import toast from "react-hot-toast";
 
 type FormValues = {
   pin: string;
-  //   pinExample: string;
 };
 
 function LoginForm() {
@@ -22,11 +21,10 @@ function LoginForm() {
       ///// logic for successful attempt
       // login success animation
       // redirect to home
+      toast.success(`Welcome Mike`); // Make user dynamic
       router.push("/");
-    } else console.log(`Incorrect PIN attempt`);
+    } else toast.error(`Incorrect PIN attempt`);
   };
-
-  //   console.log(watch("pin"));
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -35,11 +33,27 @@ function LoginForm() {
           {/* <h1 className="text-xl font-bold mt-1 mb-8">Login</h1> */}
           <div className="flex flex-col">
             <label htmlFor="pin" className="mr-2 mb-1 font-bold">
-              Enter PIN
+              Enter your PIN
             </label>
-            <input {...register("pin", { required: true })} />
+            <input
+              type="number"
+              // placeholder="Four numbers only"
+              className="p-2 text-sm"
+              {...register("pin", {
+                required: "Field is required",
+                // valueAsNumber: true,
+                maxLength: {
+                  value: 4,
+                  message: "must be 4 digits",
+                },
+                minLength: {
+                  value: 4,
+                  message: "must be 4 digits",
+                },
+              })}
+            />
             {errors.pin && (
-              <span className="text-red-600">This field is required</span>
+              <span className="text-red-600">{errors.pin.message}</span>
             )}
           </div>
           <button
