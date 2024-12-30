@@ -1,14 +1,19 @@
 "use client";
-import { LogIn, Clapperboard, Heart } from "lucide-react";
+import { useAuth } from "@/app/auth-provider";
+import { LogIn, Clapperboard, Heart, LogOut } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 function Header() {
-  //   const handleClickAuth = () => {
-  //     if (isUser === false) {
-  //     }
-  //   };
+  const { user, logoutUser } = useAuth();
   const router = useRouter();
+
+  const handleLogOut = () => {
+    logoutUser();
+    if (user === false) {
+      router.push("/");
+    }
+  };
 
   return (
     <div className="flex justify-center w-48 p-4 mx-auto bg-gray-100 mt-2 rounded-xl shadow-md">
@@ -25,11 +30,15 @@ function Header() {
             </Link>
           </li>
           <li>
-            {/* if loggedin, display logout icon, else display login icon */}
-            {/* LogOut */}
-            <button onClick={() => router.push("/login")}>
-              <LogIn />
-            </button>
+            {user ? (
+              <button onClick={handleLogOut}>
+                <LogOut />
+              </button>
+            ) : (
+              <button onClick={() => router.push("/login")}>
+                <LogIn />
+              </button>
+            )}
           </li>
         </ul>
       </nav>

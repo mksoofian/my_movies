@@ -1,4 +1,5 @@
 "use client";
+import { useAuth } from "@/app/auth-provider";
 import { CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -19,6 +20,7 @@ function LoginForm() {
     watch,
     formState: { errors },
   } = useForm<FormValues>();
+  const { loginUser } = useAuth();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     // Timer delay for submission loading spinner animation
@@ -26,6 +28,7 @@ function LoginForm() {
     setTimeout(() => {
       setIsLoading(false);
       if (data.pin == dbPin) {
+        loginUser(data.pin);
         toast.success(`Welcome Mike`); // Make user dynamic
         router.push("/");
       } else toast.error(`Incorrect PIN attempt`);
