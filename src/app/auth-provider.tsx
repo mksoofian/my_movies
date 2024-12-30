@@ -14,7 +14,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 // create provider
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState(false);
-  const password = process.env.PIN;
+  const password = process.env.PIN; // This is not secure. Should happen on the server side -------------------
 
   const loginUser = (pass: string) => {
     if (password === pass) {

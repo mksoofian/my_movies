@@ -9,7 +9,7 @@ This project will create a movie exploration application that allows users to se
 API: OMDb API (Free tier with API key)
 The OMDb API provides movie information and is simple to integrate. It offers a free tier with sufficient requests for a side project.
 
-ve## Getting Started
+## Getting Started
 
 If installing locally:
 

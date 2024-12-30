@@ -12,7 +12,7 @@ type FormValues = {
 
 function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
-  const dbPin = process.env.PIN;
+  const dbPin = process.env.PIN; // not secure. This should happen on the server -------------------
   const router = useRouter();
   const {
     register,
