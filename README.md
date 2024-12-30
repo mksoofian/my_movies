@@ -1,11 +1,25 @@
 #### Mike's Movie App
 
+Vercel Deployment:
+
 ## Project: Movie Explorer
 
 This project will create a movie exploration application that allows users to search for movies, view details, and create a watchlist. We'll use the OMDb API (Open Movie Database), which is free and easy to use.
 
 API: OMDb API (Free tier with API key)
 The OMDb API provides movie information and is simple to integrate. It offers a free tier with sufficient requests for a side project.
+
+ve## Getting Started
+
+If installing locally:
+
+1. Clone the repository
+2. Run `npm install`
+3. Copy `.env.example` to `.env.local` and fill in the values
+4. To pull environment variables from Vercel (if applicable):
+   - Ensure you're logged in to Vercel CLI (`npx vercel login`)
+   - Run `npm run pull-env`
+5. Run `npm run dev` to start the development server
 
 ## Project Outline:
 

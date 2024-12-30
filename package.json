@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "pull-env": "npx vercel env pull"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -17,7 +18,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
-    "react-hot-toast": "^2.4.1"
+    "react-hot-toast": "^2.4.1",
+    "vercel": "^39.2.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
