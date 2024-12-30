@@ -14,7 +14,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 // create provider
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState(false);
-  const password = process.env.NEXT_PUBLIC_TEST_PIN;
+  const password = process.env.PIN;
 
   const loginUser = (pass: string) => {
     if (password === pass) {

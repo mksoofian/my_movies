@@ -12,7 +12,7 @@ type FormValues = {
 
 function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
-  const dbPin = process.env.NEXT_PUBLIC_TEST_PIN;
+  const dbPin = process.env.PIN;
   const router = useRouter();
   const {
     register,
