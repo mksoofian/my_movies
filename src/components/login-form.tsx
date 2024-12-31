@@ -12,7 +12,7 @@ type FormValues = {
 
 function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
-  const dbPin = process.env.PIN; // not secure. This should happen on the server -------------------
+  //   const dbPin = process.env.PIN; // not secure. This should happen on the server -------------------
   const router = useRouter();
   const {
     register,
@@ -26,12 +26,13 @@ function LoginForm() {
     // Timer delay for submission loading spinner animation
     setIsLoading(true);
     setTimeout(() => {
+      //   if (data.pin === dbPin) {
+      loginUser(data.pin);
+      console.log(`form: ${loginUser(data.pin)}`);
+      toast.success(`Welcome Mike`); // Make user dynamic
+      router.push("/");
+      //   } else toast.error(`Incorrect PIN attempt`);
       setIsLoading(false);
-      if (data.pin == dbPin) {
-        loginUser(data.pin);
-        toast.success(`Welcome Mike`); // Make user dynamic
-        router.push("/");
-      } else toast.error(`Incorrect PIN attempt`);
     }, 2000);
   };
 
@@ -68,7 +69,8 @@ function LoginForm() {
           <button
             type="submit"
             disabled={
-              watch("pin") === "" || watch("pin") === undefined || isLoading
+              //   watch("pin") === "" || watch("pin") === undefined ||
+              isLoading
             }
             className={` text-white rounded-md mt-4 w-20 py-1 px-2 ${
               watch("pin") === "" || watch("pin") === undefined

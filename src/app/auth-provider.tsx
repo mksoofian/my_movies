@@ -1,5 +1,6 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 // define context type
 type AuthContextType = {
@@ -14,12 +15,51 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 // create provider
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState(false);
-  const password = process.env.PIN; // This doesnt work without being assigned NEXT_PUBLIC. Either way is not secure. Should happen n
+  //   const [pin, setPin] = useState<string | undefined>(undefined);
+  //   const password = process.env.PIN; // This doesnt work without being assigned NEXT_PUBLIC. Either way it is not secure. Should happen n
 
-  const loginUser = (pass: string) => {
-    if (password === pass) {
-      setUser(true);
+  useEffect(() => {
+    // localStorage.getItem("my_movie_pin");
+  }, []);
+
+  const loginUser = async (pin: string) => {
+    try {
+      const response = await fetch("/api/verify_pin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ pin }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log(data.message);
+        toast.success(data.message);
+        setUser(true);
+      } else {
+        console.log(data.message || "An error occurred");
+      }
+    } catch (error) {
+      console.log(`An error occured: ${error}`);
     }
+    // try {
+    //   const response = await fetch("/api/verify_pin", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ pin }),
+    //   });
+
+    //   const data = response.json();
+    //   console.log(data);
+    //   //   setUser(true);
+    // } catch (error) {
+    //   console.log(error);
+    //   toast.error("could not validate pin");
+    // }
   };
 
   const logoutUser = () => {
