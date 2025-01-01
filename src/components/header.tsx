@@ -1,5 +1,6 @@
 "use client";
 import { useAuth } from "@/app/auth-provider";
+import { Box } from "@mui/material";
 import { LogIn, Clapperboard, Heart, LogOut } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -16,7 +17,18 @@ function Header() {
   };
 
   return (
-    <div className="flex justify-center w-48 p-4 mx-auto bg-gray-100 mt-2 rounded-xl shadow-md">
+    <Box
+      //   className="flex justify-center w-48 p-4 mx-auto bg-gray-100 mt-2 rounded-xl shadow-md"
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        width: "12rem",
+        p: "1rem",
+        mx: "auto",
+        borderRadius: ".75rem",
+        backgroundColor: "#efeeee",
+      }}
+    >
       <nav>
         <ul className="flex gap-8">
           <li>
@@ -32,7 +44,7 @@ function Header() {
           <li>
             {user ? (
               <button onClick={handleLogOut}>
-                <LogOut />
+                <LogOut className="hover:text-red-700" />
               </button>
             ) : (
               <button onClick={() => router.push("/login")}>
@@ -42,7 +54,7 @@ function Header() {
           </li>
         </ul>
       </nav>
-    </div>
+    </Box>
   );
 }
 
