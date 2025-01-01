@@ -1,10 +1,8 @@
 "use client";
 import { useAuth } from "@/app/auth-provider";
 import { CircularProgress } from "@mui/material";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import toast from "react-hot-toast";
 
 type FormValues = {
   pin: string;
@@ -12,8 +10,7 @@ type FormValues = {
 
 function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
-  //   const dbPin = process.env.PIN; // not secure. This should happen on the server -------------------
-  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -26,12 +23,7 @@ function LoginForm() {
     // Timer delay for submission loading spinner animation
     setIsLoading(true);
     setTimeout(() => {
-      //   if (data.pin === dbPin) {
-      loginUser(data.pin);
-      console.log(`form: ${loginUser(data.pin)}`);
-      toast.success(`Welcome Mike`); // Make user dynamic
-      router.push("/");
-      //   } else toast.error(`Incorrect PIN attempt`);
+      loginUser(data.pin); // Attempts to log in user with pin from input
       setIsLoading(false);
     }, 2000);
   };

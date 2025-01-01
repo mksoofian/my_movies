@@ -1,5 +1,6 @@
 "use client";
-import { createContext, useContext, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { createContext, useContext, useState } from "react";
 import toast from "react-hot-toast";
 
 // define context type
@@ -15,12 +16,10 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 // create provider
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState(false);
-  //   const [pin, setPin] = useState<string | undefined>(undefined);
-  //   const password = process.env.PIN; // This doesnt work without being assigned NEXT_PUBLIC. Either way it is not secure. Should happen n
-
-  useEffect(() => {
-    // localStorage.getItem("my_movie_pin");
-  }, []);
+  const router = useRouter();
+  //   useEffect(() => {
+  //     // localStorage.getItem("my_movie_pin");
+  //   }, []);
 
   const loginUser = async (pin: string) => {
     try {
@@ -38,28 +37,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         console.log(data.message);
         toast.success(data.message);
         setUser(true);
+        router.push(`/`);
       } else {
+        toast.error(`${data.message}. Try again.`);
         console.log(data.message || "An error occurred");
       }
     } catch (error) {
       console.log(`An error occured: ${error}`);
     }
-    // try {
-    //   const response = await fetch("/api/verify_pin", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ pin }),
-    //   });
-
-    //   const data = response.json();
-    //   console.log(data);
-    //   //   setUser(true);
-    // } catch (error) {
-    //   console.log(error);
-    //   toast.error("could not validate pin");
-    // }
   };
 
   const logoutUser = () => {
