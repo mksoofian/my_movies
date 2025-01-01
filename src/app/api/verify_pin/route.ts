@@ -4,7 +4,6 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
   const { pin } = body;
 
-
   // The secret PIN should be set as an environment variable
   //   const adminPin = process.env.ADMIN_PIN;
   const adminPin = 1234;
@@ -14,10 +13,13 @@ export async function POST(request: NextRequest) {
   }
 
   if (pin == adminPin) {
-    return NextResponse.json({
-      success: true,
-      message: "PIN verified successfully",
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        message: "PIN verified successfully",
+      },
+      { status: 200 }
+    );
   } else {
     return NextResponse.json(
       { success: false, message: "Incorrect PIN" },
