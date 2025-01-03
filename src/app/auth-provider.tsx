@@ -3,11 +3,14 @@ import { useRouter } from "next/navigation";
 import { createContext, useContext, useState } from "react";
 import toast from "react-hot-toast";
 
+const userName = "Mike";
+
 // define context type
 type AuthContextType = {
   user: boolean;
   loginUser: (arg0: string) => void;
   logoutUser: () => void;
+  userName: string;
 };
 
 // create context
@@ -49,10 +52,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logoutUser = () => {
     setUser(false);
+    toast.success(`Logged out ${userName}`);
   };
 
   return (
-    <AuthContext.Provider value={{ user, loginUser, logoutUser }}>
+    <AuthContext.Provider value={{ user, loginUser, logoutUser, userName }}>
       {children}
     </AuthContext.Provider>
   );
