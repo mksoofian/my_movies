@@ -1,6 +1,6 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { createContext, useContext, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const userName = "Mike";
@@ -20,9 +20,11 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState(false);
   const router = useRouter();
-  //   useEffect(() => {
-  //     // localStorage.getItem("my_movie_pin");
-  //   }, []);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (user && pathname === "/login") router.push("/");
+  }, [pathname, router, user]);
 
   const loginUser = async (pin: string) => {
     try {
