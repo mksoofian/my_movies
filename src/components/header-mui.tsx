@@ -41,9 +41,9 @@ function ResponsiveAppBar() {
     setAnchorElNav(null);
   };
 
-  const handleClickLogin = () => {
+  const handleClickLink = (link: string) => {
     handleCloseNavMenu();
-    router.push("/login");
+    router.push(link);
   };
 
   //   const handleCloseUserMenu = () => {
@@ -100,11 +100,13 @@ function ResponsiveAppBar() {
               onClose={handleCloseNavMenu}
               sx={{ display: { xs: "block", md: "none" } }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: "center" }}>{page}</Typography>
-                </MenuItem>
-              ))}
+              {pages.map((page) => {
+                return (
+                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <Typography sx={{ textAlign: "center" }}>{page}</Typography>
+                  </MenuItem>
+                );
+              })}
             </Menu>
           </Box>
           {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
@@ -128,7 +130,9 @@ function ResponsiveAppBar() {
           </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => {
-              if (page === "Login") {
+              const pageLink = `/${page.toLowerCase()}`;
+
+              if (pageLink.includes("login")) {
                 if (user) {
                   return (
                     <Button
@@ -140,20 +144,24 @@ function ResponsiveAppBar() {
                     </Button>
                   );
                 }
+              }
+
+              if (pageLink.includes(`home`)) {
                 return (
                   <Button
                     key={page}
-                    onClick={handleClickLogin}
+                    onClick={() => handleClickLink(`/`)}
                     sx={{ my: 2, color: "white", display: "block" }}
                   >
                     {page}
                   </Button>
                 );
               }
+
               return (
                 <Button
                   key={page}
-                  onClick={handleCloseNavMenu}
+                  onClick={() => handleClickLink(pageLink)}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
                   {page}
