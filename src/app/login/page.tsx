@@ -39,11 +39,10 @@ export default function LoginPage() {
             </label>
             <input
               type="number"
-              // placeholder="Four numbers only"
               className="p-2 text-sm"
               {...register("pin", {
                 required: "Field is required",
-                // valueAsNumber: true,
+
                 maxLength: {
                   value: 4,
                   message: "must be 4 digits",
@@ -60,10 +59,7 @@ export default function LoginPage() {
           </div>
           <button
             type="submit"
-            disabled={
-              //   watch("pin") === "" || watch("pin") === undefined ||
-              isLoading
-            }
+            disabled={isLoading}
             className={` text-white rounded-md mt-4 w-20 py-1 px-2 ${
               watch("pin") === "" || watch("pin") === undefined
                 ? "bg-gray-400"
