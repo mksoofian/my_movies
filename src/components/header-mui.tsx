@@ -18,7 +18,6 @@ import { useAuth } from "@/app/auth-provider";
 import { useRouter } from "next/navigation";
 
 const pages = ["Home", "WatchList", "Login"];
-// const settings = ["Logout"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -26,16 +25,10 @@ function ResponsiveAppBar() {
   );
   const { user, logoutUser } = useAuth();
   const router = useRouter();
-  //   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-  //     null
-  //   );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  //   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-  //     setAnchorElUser(event.currentTarget);
-  //   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
@@ -46,10 +39,6 @@ function ResponsiveAppBar() {
     router.push(link);
   };
 
-  //   const handleCloseUserMenu = () => {
-  //     setAnchorElUser(null);
-  //   };
-
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -59,7 +48,7 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -101,38 +90,44 @@ function ResponsiveAppBar() {
               sx={{ display: { xs: "block", md: "none" } }}
             >
               {pages.map((page) => {
+                const pageLink = `/${page.toLowerCase()}`;
+
+                if (page.toLowerCase() === "login") {
+                  if (user) {
+                    return (
+                      <MenuItem key={page} onClick={logoutUser}>
+                        <Typography sx={{ textAlign: "center" }}>
+                          Logout
+                        </Typography>
+                      </MenuItem>
+                    );
+                  }
+                }
+
+                if (page.toLowerCase() === "home") {
+                  return (
+                    <MenuItem key={page} onClick={() => handleClickLink("/")}>
+                      <Typography sx={{ textAlign: "center" }}>Home</Typography>
+                    </MenuItem>
+                  );
+                }
+
                 return (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <MenuItem
+                    key={page}
+                    onClick={() => handleClickLink(pageLink)}
+                  >
                     <Typography sx={{ textAlign: "center" }}>{page}</Typography>
                   </MenuItem>
                 );
               })}
             </Menu>
           </Box>
-          {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
-          {/* <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => {
               const pageLink = `/${page.toLowerCase()}`;
 
-              if (pageLink.includes("login")) {
+              if (page.toLowerCase() === "login") {
                 if (user) {
                   return (
                     <Button
@@ -146,7 +141,7 @@ function ResponsiveAppBar() {
                 }
               }
 
-              if (pageLink.includes(`home`)) {
+              if (page.toLowerCase() === `home`) {
                 return (
                   <Button
                     key={page}
@@ -169,37 +164,6 @@ function ResponsiveAppBar() {
               );
             })}
           </Box>
-          {/* <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: "center" }}>
-                    {setting}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box> */}
         </Toolbar>
       </Container>
     </AppBar>
