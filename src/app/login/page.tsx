@@ -77,7 +77,7 @@
 //     </form>
 //   );
 // }
-import * as React from "react";
+import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -86,6 +86,18 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 
 export default function LoginForm() {
+  const [pin, setPin] = useState("");
+  const [validationError, setValidationError] = useState<string | undefined>(
+    undefined
+  );
+
+  useEffect(() => {
+    console.log(pin);
+    if (pin.length > 4) {
+      setValidationError("Must be 4-digits");
+    }
+  }, [pin]);
+
   return (
     <Box
       sx={{
@@ -115,7 +127,13 @@ export default function LoginForm() {
               required
               id="outlined-required"
               label="Required"
-              helperText="must be 4-digits"
+              //// Set the below attributes only if error is true
+              helperText={Boolean(validationError) ? validationError : ""}
+              error={Boolean(validationError)}
+              value={pin}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setPin(event.target.value);
+              }}
             />
           </Box>
         </CardContent>
