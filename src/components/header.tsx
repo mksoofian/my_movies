@@ -16,7 +16,7 @@ function Header() {
   };
 
   return (
-    <div className="flex justify-center w-48 p-4 mx-auto bg-gray-100 mt-2 rounded-xl shadow-md">
+    <header className="flex justify-center w-48 p-4 mx-auto bg-gray-100 mt-2 rounded-xl shadow-md">
       <nav>
         <ul className="flex gap-8">
           <li>
@@ -42,7 +42,7 @@ function Header() {
           </li>
         </ul>
       </nav>
-    </div>
+    </header>
   );
 }
 
